@@ -19,3 +19,7 @@
 # Sauvegarde
 *.bak
 *~
+
+# Kate project
+.kateproject
+.kateproject.d/*
