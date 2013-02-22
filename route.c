@@ -332,40 +332,81 @@ void set_camera_dessus(route r, position p) {
     glMatrixMode( GL_MODELVIEW );
 }
 
+/**
+ * Question 2
+ * 
+ * Dessine la voiture
+ * @param p Position de la voiture
+ */
 void dessine_voiture(position p) {
-  point3d_cell p1 = p->centre, p2 = p->centre, p3 = p->centre, p4 = p->centre;
-  vecteur3d_cell cote;
-  vec_prod3d(&cote,&(p->dessus),&(p->devant));
-  vecteur3d_cell opp_cote = cote;
-  vecteur3d_cell derriere = p->devant;
-  scal_prod3d(&opp_cote, -1);
-  scal_prod3d(&derriere, -1);
-
-  translate3d(&p1, 1.0, &cote);
-  translate3d(&p2, -1.0, &cote);
-  translate3d(&p3, 0.5, &(p->dessus));
-  translate3d(&p4, 4.0, &(p->devant));
-
-  glColor3f(   0.7f,  0.3f,  0.2f ); 
-  glBegin(GL_TRIANGLES);
-  glNormal3dv((double*) &derriere);
-  glVertex3dv((double*) &p1);
-  glVertex3dv((double*) &p2);
-  glVertex3dv((double*) &p3);
-  
-  glNormal3dv((double*) &cote);
-  glVertex3dv((double*) &p1);
-  glNormal3dv((double*) &p->dessus);
-  glVertex3dv((double*) &p3);
-  glNormal3dv((double*) &p->devant);
-  glVertex3dv((double*) &p4);
-
-  glNormal3dv((double*) &opp_cote);
-  glVertex3dv((double*) &p2);
-  glNormal3dv((double*) &p->devant);
-  glVertex3dv((double*) &p4);
-  glNormal3dv((double*) &p->dessus);
-  glVertex3dv((double*) &p3);
-  
-  glEnd();
+	vecteur3d_cell cote;
+	vec_prod3d(&cote,&(p->dessus),&(p->devant));
+	double matrix[] = {
+		p->devant.x,p->devant.y,p->devant.z,0 ,
+		cote.x,cote.y,cote.z,0 , 
+		p->dessus.x,p->dessus.y,p->dessus.z,0 ,
+		p->centre.x,p->centre.y,p->centre.z,1
+	};
+	
+	glPushMatrix();
+	glMultMatrixd(matrix);
+//   point3d_cell p1 = p->centre, p2 = p->centre, p3 = p->centre, p4 = p->centre;
+//   vecteur3d_cell cote;
+//   vec_prod3d(&cote,&(p->dessus),&(p->devant));
+//   vecteur3d_cell opp_cote = cote;
+//   vecteur3d_cell derriere = p->devant;
+//   scal_prod3d(&opp_cote, -1);
+//   scal_prod3d(&derriere, -1);
+// 
+//   translate3d(&p1, 1.0, &cote);
+//   translate3d(&p2, -1.0, &cote);
+//   translate3d(&p3, 0.5, &(p->dessus));
+//   translate3d(&p4, 4.0, &(p->devant));
+	
+	
+	glColor3f(0.2f,  0.8f,  0.2f); 
+	glBegin(GL_TRIANGLES);
+	glNormal3d(-1,0,0);
+	glVertex3d(0,-1,0);
+	glVertex3d(0,1,0);
+	glVertex3d(0,1,0.5);
+	
+	
+	glNormal3d(-1,0,0);
+	glVertex3d(0,-1,0);
+	glVertex3d(0,1,0.5);
+	glVertex3d(0,-1,0.5);
+	
+	
+// 	glColor3f(0.9f,  0.2f,  0.2f);
+// 	
+// 	glNormal3d(-1,0,0);
+// 	glVertex3d(0,-0.9,0.2);
+// 	glVertex3d(0,-0.8,0.4);
+// 	glVertex3d(0,-0.9,0.4);
+// 	
+// 	glNormal3d(-1,0,0);
+// 	glVertex3d(0,-0.8,0.2);
+// 	glVertex3d(0,-0.8,0.4);
+// 	glVertex3d(0,-0.9,0.2);
+	
+// 	glNormal3d(0,1,0);
+	
+// 	glNormal3d(0,1,0);
+// 	glVertex3d(0,1,0);
+// 	glNormal3d(0,0,1);
+// 	glVertex3d(0,0,0.5);
+// 	glNormal3d(1,0,0);
+// 	glVertex3d(4,0,0);
+// 	
+// 	glNormal3d(0,-1,0);
+// 	glVertex3d(0,-1,0);
+// 	glNormal3d(1,0,0);
+// 	glVertex3d(4,0,0);
+// 	glNormal3d(0,0,1);
+// 	glVertex3d(0,0,0.5);
+	
+	glEnd();
+	
+	glPopMatrix();
 }
