@@ -340,7 +340,7 @@ void set_camera_dessus(route r, position p) {
  */
 void dessine_voiture(position p) {
 	vecteur3d_cell cote;
-	vec_prod3d(&cote,&(p->dessus),&(p->devant));
+	vec_prod3d(&cote,&(p->devant),&(p->dessus));
 	double matrix[] = {
 		p->devant.x,p->devant.y,p->devant.z,0 ,
 		cote.x,cote.y,cote.z,0 , 
@@ -370,7 +370,6 @@ void dessine_voiture(position p) {
 	glVertex3d(0,-1,0);
 	glVertex3d(0,1,0);
 	glVertex3d(0,1,0.5);
-	
 	
 	glNormal3d(-1,0,0);
 	glVertex3d(0,-1,0);
